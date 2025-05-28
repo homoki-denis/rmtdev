@@ -28,10 +28,11 @@ export default function JobItemsContextProvider({
   const [sortBy, setSortBy] = useState<SortBy>("relevant");
 
   const totalNumberOfJobs = jobItems?.length || 0;
-  const totalNumberOfPages = totalNumberOfJobs / RESULTS_PER_PAGE;
+  const totalNumberOfPages = Math.ceil(totalNumberOfJobs / RESULTS_PER_PAGE);
+  
   const jobItemsSorted = useMemo(
     () =>
-      [...(jobItems || [])]?.sort((a, b) => {
+      [...(jobItems || [])].sort((a, b) => {
         if (sortBy === "relevant") {
           return b.relevanceScore - a.relevanceScore;
         } else {
@@ -40,12 +41,13 @@ export default function JobItemsContextProvider({
       }),
     [sortBy, jobItems]
   );
+
   const jobItemsSortedAndSliced = useMemo(
     () =>
-      jobItemsSorted?.slice(
+      jobItemsSorted.slice(
         currentPage * RESULTS_PER_PAGE - RESULTS_PER_PAGE,
         currentPage * RESULTS_PER_PAGE
-      ) || [],
+      ),
     [currentPage, jobItemsSorted]
   );
 
@@ -86,6 +88,7 @@ export default function JobItemsContextProvider({
       totalNumberOfJobs,
     ]
   );
+
   return (
     <JobItemsContext.Provider value={contextValue}>
       {children}

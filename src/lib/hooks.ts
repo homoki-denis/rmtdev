@@ -66,7 +66,7 @@ export const useJobItems = (ids: number[]) => {
 type JobItemsApiResponse = {
   public: boolean;
   sorted: boolean;
-  jobItems: JobItem;
+  jobItems: JobItem[];
 };
 
 const fetchJobItems = async (

@@ -6,7 +6,7 @@ import { useOnClickOutside } from "../../lib/hooks";
 export default function BookmarksButton() {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const popoverRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
   useOnClickOutside([buttonRef, popoverRef], () => {
     setIsOpen(false);
   });

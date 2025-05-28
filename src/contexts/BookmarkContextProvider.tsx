@@ -16,7 +16,7 @@ export default function BookmarkContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [bookmarkedId, setBookmarkedId] = useLocalStorage("bookmarkedIds", []);
+  const [bookmarkedId, setBookmarkedId] = useLocalStorage<number[]>("bookmarkedIds", []);
 
   const { jobItems: bookmarkedJobItems, isLoading } = useJobItems(bookmarkedId);
 
@@ -33,7 +33,7 @@ export default function BookmarkContextProvider({
       value={{
         bookmarkedId,
         handleToggleBookmark,
-        bookmarkedJobItems,
+        bookmarkedJobItems: bookmarkedJobItems || [],
         isLoading,
       }}
     >
